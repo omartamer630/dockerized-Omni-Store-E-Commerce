@@ -1,4 +1,4 @@
-# Omni Store Project
+# Dockerized Omni Store Project
 
 ## Overview
 My first ever E-Commerce site, featuring a full-featured shopping experience with user authentication, product listings, shopping cart, wishlist, and responsive design.
@@ -22,13 +22,11 @@ My first ever E-Commerce site, featuring a full-featured shopping experience wit
 - **Responsive Design**
   - Optimized for desktop, tablet, and mobile devices to provide a seamless user experience.
 
-## Installation
+## Building
 
 ### Prerequisites
 
-- Node.js
-- npm or Yarn
-- MongoDB
+- Docker
 
 ### Steps
 
@@ -39,48 +37,36 @@ My first ever E-Commerce site, featuring a full-featured shopping experience wit
 
 2. **Navigate to the project directory**:
     ```bash
-    cd Omni-Store-E-Commerce
+    cd dockerized-Omni-Store-E-Commerce
     ```
-
-3. **Install dependencies**:
-    ```bash
-    npm install
-    ```
-    
-4. **Create a `.env` file in the root directory** and add the following environment variables:
+3. **Create a `.env` file in the root directory** and add the following environment variables:
     ```env
     MONGODB_URI=your_mongodb_uri
     JWT_ACCESS_SECRET=your_jwt_secret
     JWT_REFRESH_TOKEN=your_jwt_secret
 
     ```
-
-5. **Start the development server**:
+4. **Build image**:
     ```bash
-    npm run dev
+    docker compose build
     ```
-
-6. **Start the backend server**:
+    
+5. **Start the Container**:
     ```bash
-    npm run serve
+    docker compose up -d
     ```
-
-7. **Access the application**:
-   Open your browser and navigate to `http://localhost:5173`.
-
-## Usage
-
-### Running the project
-
-1. Start the frontend development server
-   ```bash
-   npm run dev
-2. Start the frontend development server
-   ```bash
-   npm run serve
+    
+6. **Access the application**:
+   Open your browser and navigate to `http://localhost:80`.
 
 ## Technologies Used
 
+### Docker:
+- **Docker container:** An isolated, lightweight environment where applications can run consistently across different computing environments. It packages the application along with its dependencies.
+- **Dockerfile:** A text file that contains a series of instructions on how to build a Docker image. It specifies the base image, application code, dependencies, and commands needed to set up the environment.
+- **Docker compose:** A tool for defining and running multi-container Docker applications. It uses a YAML file to configure application services, networks, and volumes.
+- **Docker images:** Read-only templates used to create Docker containers. They contain the application code, runtime, libraries, and environment settings.
+- 
 ### Frontend:
 - **React:** A JavaScript library for building user interfaces.
 - **TypeScript:** A typed superset of JavaScript that compiles to plain JavaScript.
