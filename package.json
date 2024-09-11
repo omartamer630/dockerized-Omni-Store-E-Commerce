@@ -48,6 +48,7 @@
     "redux": "^5.0.1",
     "styled-components": "^6.1.12",
     "swiper": "^11.1.5",
+    "tailwindcss": "^3.4.4",
     "yup-phone-lite": "^2.0.1"
   },
   "devDependencies": {

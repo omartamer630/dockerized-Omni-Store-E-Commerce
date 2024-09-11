@@ -1,0 +1,20 @@
+# Backend: Installing full Node version for backend build
+FROM node:18 AS backend-build
+
+WORKDIR /app
+
+# Copy only backend files
+COPY package.json package-lock.json ./
+
+# Install backend dependencies
+RUN npm install && npm i bun 
+
+
+# Copy the backend source code
+COPY . .
+
+# Expose the backend port
+EXPOSE 4000
+
+# Start the backend
+CMD ["npm", "run", "serve"]

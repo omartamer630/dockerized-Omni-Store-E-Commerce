@@ -1,0 +1,23 @@
+version: '3.8'
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile.back
+    ports:
+      - "4000:4000"
+    environment:
+      - NODE_ENV=production
+      - PATH=/root/.bun/bin:${PATH}
+
+
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile.front
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    environment:
+      - PATH=/root/.bun/bin:${PATH}
