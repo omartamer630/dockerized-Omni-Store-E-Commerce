@@ -4,6 +4,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.back
+    image: omni-store-e-commerce-backend
     ports:
       - "4000:4000"
     environment:
@@ -15,6 +16,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.front
+    image: omni-store-e-commerce-frontend
     ports:
       - "80:80"
     depends_on:
