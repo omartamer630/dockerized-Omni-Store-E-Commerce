@@ -3,17 +3,22 @@ pipeline{
     environment {
         DOCKER_USER = credentials('9') // Assuming credentials are stored in Jenkins
     }
+    tools {
+        // Specify the tools you want to use
+        dockerTool 'Docker' // Assuming 'Docker' is the name of the tool configured in Jenkins
+        // Add other tools as needed, e.g., Maven, NodeJS, etc.
+    }
     stages{      
         stage("Image Build"){
             steps{
-                sh "docker compose build "
+                sh "docker-compose build "
                 sh "docker images"
 
             }
         }
         stage("Image Test"){
             steps{
-                sh "docker compose up -d"
+                sh "docker-compose up -d"
                 sh "docker ps"
             }
         }
