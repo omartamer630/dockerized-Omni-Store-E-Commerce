@@ -7,7 +7,7 @@ pipeline{
         stage("Image Build"){
             steps{
                     sh "docker build -f Dockerfile.back -t omartamer12/omni-store-e-commerce-backend:latest ."
-                    sh "docker build -f Dockerfile.front -t omartamer12/omni-store-e-commerce-frontend:latest} ."
+                    sh "docker build -f Dockerfile.front -t omartamer12/omni-store-e-commerce-frontend:latest ."
                     sh "docker images"
 
             }
