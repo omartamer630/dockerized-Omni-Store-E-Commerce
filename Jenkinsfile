@@ -9,7 +9,7 @@ pipeline{
                sh "apt update"
                sh "apt install curl"
                sh "curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/trusted.gpg.d/docker.gpg"
-               sh "add-apt-repository 'deb [arch=$(dpkg --print-architecture)] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable'"
+               sh "add-apt-repository 'deb [arch=\$(dpkg --print-architecture)] https://download.docker.com/linux/ubuntu \$(lsb_release -cs) stable'"
                sh "apt -y install lsb-release gnupg apt-transport-https ca-certificates curl software-properties-common"
                sh "apt -y install docker-ce docker-ce-cli containerd.io docker-compose-plugin docker-registry"
                sh "usermod -aG docker $USER"
