@@ -3,28 +3,13 @@ pipeline{
     environment {
         DOCKER_USER = credentials('9') // Assuming credentials are stored in Jenkins
     }
-    tools {
-        // Specify the tools you want to use
-        dockerTool 'Docker' // Assuming 'Docker' is the name of the tool configured in Jenkins
-        // Add other tools as needed, e.g., Maven, NodeJS, etc.
-    }
     stages{      
         stage("Image Build"){
             steps{
-                script {
-                    // Check if Docker and Docker Compose are available
-                    sh "docker --version"
-                    sh "docker-compose --version" // Verify Docker Compose installation
-                }
-                sh "docker-compose build "
-                sh "docker images"
+                    sh "docker build Dockerfile.back -t omartamer12/omni-store-e-commerce-backend"
+                    sh "docker build Dockerfile.front -t omartamer12/omni-store-e-commerce-front"
+                    sh "docker images"
 
-            }
-        }
-        stage("Image Test"){
-            steps{
-                sh "docker-compose up -d"
-                sh "docker ps"
             }
         }
         stage("Image Push"){
