@@ -16,8 +16,8 @@ pipeline{
             steps{
               withCredentials([usernamePassword(credentialsId: '9', usernameVariable: 'DOCKER_USR', passwordVariable: 'DOCKER_PSW')]) {
                     sh "echo ${DOCKER_PSW} | docker login -u ${DOCKER_USR} --password-stdin"
-                    sh "docker push omartamer12/omni-store-e-commerce-frontend"
-                    sh "docker push omartamer12/omni-store-e-commerce-backend"
+                    sh "docker push omartamer12/omni-store-e-commerce-frontend:${BUILD_TAG}"
+                    sh "docker push omartamer12/omni-store-e-commerce-backend:${BUILD_TAG}"
                 }
             }
         }
