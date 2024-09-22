@@ -6,8 +6,8 @@ pipeline{
     stages{      
         stage("Image Build"){
             steps{
-                sh "sudo apt-get update"
-                sh  "sudo apt-get install docker-compose-plugin"
+                sh "apt-get update"
+                sh  "apt-get install docker-compose-plugin"
 
                 sh "docker compose build "
                 sh "docker images"
