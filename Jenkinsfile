@@ -1,5 +1,7 @@
 pipeline{
-    agent any
+    agent {
+        docker { image 'docker:20.10.8' }
+    }
     environment {
         DOCKER_USER = credentials('9') // Assuming credentials are stored in Jenkins
     }
