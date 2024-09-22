@@ -3,12 +3,7 @@ pipeline{
     environment {
         DOCKER_USER = credentials('9') // Assuming credentials are stored in Jenkins
     }
-    stages{
-        stage("Repo Clone"){
-            steps{
-                git "https://github.com/omartamer630/dockerized-Omni-Store-E-Commerce"
-            }
-            }        
+    stages{      
         stage("Image Build"){
             steps{
                 sh "docker compose build "
