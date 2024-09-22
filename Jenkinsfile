@@ -6,8 +6,8 @@ pipeline{
     stages{      
         stage("Image Build"){
             steps{
-                    sh "docker build Dockerfile.back -t omartamer12/omni-store-e-commerce-backend"
-                    sh "docker build Dockerfile.front -t omartamer12/omni-store-e-commerce-front"
+                    sh "docker build -f Dockerfile.back -t omartamer12/omni-store-e-commerce-backend ."
+                    sh "docker build -f Dockerfile.front -t omartamer12/omni-store-e-commerce-front ."
                     sh "docker images"
 
             }
@@ -15,7 +15,7 @@ pipeline{
         stage("Image Push"){
             steps{
               withCredentials([usernamePassword(credentials: '9', usernameVariable: 'DOCKER_USR', passwordVariable: 'DOCKER_PSW')]) {
-                    sh "echo ${DOCKER_PSW} | docker login -u ${DOCKER_USR} -p --password-stdin"
+                    sh "echo ${DOCKER_PSW} | docker login -u ${DOCKER_USR} --password-stdin"
                     sh "docker push omartamer12/omni-store-e-commerce-frontend"
                     sh "docker push omartamer12/omni-store-e-commerce-backend"
                 }
