@@ -6,14 +6,17 @@ pipeline{
     stages{      
         stage("Image Build"){
             steps{
-                sh "docker-compose build "
+                sh "sudo apt-get update"
+                sh  "sudo apt-get install docker-compose-plugin"
+
+                sh "docker compose build "
                 sh "docker images"
 
             }
         }
         stage("Image Test"){
             steps{
-                sh "docker-compose up -d"
+                sh "docker compose up -d"
                 sh "docker ps"
 
             }
