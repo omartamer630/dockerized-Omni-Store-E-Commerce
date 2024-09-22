@@ -11,6 +11,11 @@ pipeline{
     stages{      
         stage("Image Build"){
             steps{
+                script {
+                    // Check if Docker and Docker Compose are available
+                    sh "docker --version"
+                    sh "docker-compose --version" // Verify Docker Compose installation
+                }
                 sh "docker-compose build "
                 sh "docker images"
 
