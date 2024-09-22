@@ -1,6 +1,9 @@
 pipeline{
     agent {
-        docker { image 'docker:20.10.8' }
+        docker {
+            image 'docker:20.10.8'  // Use Docker-in-Docker image
+            args '-v /var/run/docker.sock:/var/run/docker.sock'  // Mount Docker socket for Docker-in-Docker
+        }
     }
     environment {
         DOCKER_USER = credentials('9') // Assuming credentials are stored in Jenkins
