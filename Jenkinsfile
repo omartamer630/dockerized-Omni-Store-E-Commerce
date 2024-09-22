@@ -2,10 +2,16 @@ pipeline {
     agent any
 
     stages {
+        stage("Cleanup") {
+            steps {
+                sh 'docker system prune -f' // -f forces the prune without confirmation
+            }
+        }
         stage("Image Build") {
             steps {
                 // Build the backend and frontend images
                 sh '''
+                
                     docker build -f Dockerfile.back -t omartamer12/omni-store-e-commerce:backend-${IMAGE_TAG} .
                     docker build -f Dockerfile.front -t omartamer12/omni-store-e-commerce:frontend-${IMAGE_TAG} .
                     docker images
