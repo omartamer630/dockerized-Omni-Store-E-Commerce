@@ -15,12 +15,13 @@ pipeline{
         stage("Image Push"){
             steps{
               withCredentials([usernamePassword(credentialsId: '9', usernameVariable: 'DOCKER_USR', passwordVariable: 'DOCKER_PSW')]) {
-                    sh ```echo ${DOCKER_PSW} | docker login -u ${DOCKER_USR} --password-stdin
+                    sh '''
+                    echo ${DOCKER_PSW} | docker login -u ${DOCKER_USR} --password-stdin
                     docker tag omartamer12/omni-store-e-commerce-frontend:latest omartamer12/omni-store-e-commerce-frontend:${BUILD_TAG}
                     docker tag omartamer12/omni-store-e-commerce-backend:latest omartamer12/omni-store-e-commerce-backend:${BUILD_TAG}
                     docker push omartamer12/omni-store-e-commerce-frontend:${BUILD_TAG}
                     docker push omartamer12/omni-store-e-commerce-backend:${BUILD_TAG}
-                    ```
+                    '''
                 }
             }
         }
