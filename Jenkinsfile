@@ -6,14 +6,14 @@ pipeline{
     stages{      
         stage("Image Build"){
             steps{
-                sh "docker compose build "
+                sh "docker-compose build "
                 sh "docker images"
 
             }
         }
         stage("Image Test"){
             steps{
-                sh "docker compose up -d"
+                sh "docker-compose up -d"
                 sh "docker ps"
 
             }
