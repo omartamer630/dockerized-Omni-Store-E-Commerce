@@ -25,9 +25,11 @@ pipeline{
         }
         stage("Image Push"){
             steps{
-                sh "docker login -u $DOCKER_USER_USR -p $DOCKER_USER_PSW"
-                sh "docker push omartamer12/omni-store-e-commerce-frontend "
-                sh "docker push omartamer12/omni-store-e-commerce-backend "
+              withCredentials([usernamePassword(credentialsId: '9', usernameVariable: 'DOCKER_USER_USR', passwordVariable: 'DOCKER_USER_PSW')]) {
+                    sh "docker login -u $DOCKER_USER_USR -p $DOCKER_USER_PSW"
+                    sh "docker push omartamer12/omni-store-e-commerce-frontend"
+                    sh "docker push omartamer12/omni-store-e-commerce-backend"
+                }
             }
         }
         }
