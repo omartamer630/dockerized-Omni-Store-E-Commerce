@@ -1,19 +1,26 @@
 pipeline{
-    agent {
-        docker {
-            image 'docker:20.10.8'  // Use Docker-in-Docker image
-            args '-v /var/run/docker.sock:/var/run/docker.sock'  // Mount Docker socket for Docker-in-Docker
-        }
-    }
+    agent any
     environment {
         DOCKER_USER = credentials('9') // Assuming credentials are stored in Jenkins
     }
     stages{
         stage("Repo Clone"){
             steps{
+               sh "sudo apt update"
+               sh "sudo apt install curl"
+               sh "sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/trusted.gpg.d/docker.gpg"
+               sh "sudo add-apt-repository 'deb [arch=$(dpkg --print-architecture)] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable'"
+               sh "sudo apt -y install lsb-release gnupg apt-transport-https ca-certificates curl software-properties-common"
+               sh "sudo apt -y install docker-ce docker-ce-cli containerd.io docker-compose-plugin docker-registry"
+               sh "sudo usermod -aG docker $USER"
+               sh "newgrp docker"
+            }
+            }
+        stage("Docker Install"){
+            steps{
                 git "https://github.com/omartamer630/dockerized-Omni-Store-E-Commerce"
             }
-            }
+            }        
         stage("Image Build"){
             steps{
                 sh "docker compose build "
@@ -45,3 +52,5 @@ pipeline{
             echo "========pipeline execution failed========"
         }
     }
+
+
