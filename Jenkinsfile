@@ -15,13 +15,12 @@ pipeline{
             steps{
                 sh "docker compose up -d"
                 sh "docker ps"
-
             }
         }
         stage("Image Push"){
             steps{
-              withCredentials([usernamePassword(credentialsId: '9', usernameVariable: 'DOCKER_USER_USR', passwordVariable: 'DOCKER_USER_PSW')]) {
-                    sh "echo $DOCKER_USER_PSW | docker login -u $DOCKER_USER_USR -p --password-stdin"
+              withCredentials([usernamePassword(credentials: '9', usernameVariable: 'DOCKER_USR', passwordVariable: 'DOCKER_PSW')]) {
+                    sh "echo ${DOCKER_PSW} | docker login -u ${DOCKER_USR} -p --password-stdin"
                     sh "docker push omartamer12/omni-store-e-commerce-frontend"
                     sh "docker push omartamer12/omni-store-e-commerce-backend"
                 }
