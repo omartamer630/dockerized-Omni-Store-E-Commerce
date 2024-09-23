@@ -12,9 +12,11 @@ pipeline {
             }
         }
         stage("Cleanup") {
+          steps {
             script {
                 gv.cleanUp()
             }
+          }
         }
         stage("Image Build") {
             steps {
