@@ -1,38 +1,44 @@
+def gv
+
 pipeline {
     agent any
 
     stages {
-        stage("Cleanup") {
+        stage("init groovy") {
             steps {
-                sh 'docker system prune -f' // -f forces the prune without confirmation
+              script {
+                gv = load "script.groovy"
+              }
+            }
+        }
+        stage("Cleanup") {
+            script {
+                gv.cleanUp()
             }
         }
         stage("Image Build") {
             steps {
-                // Build the backend and frontend images
-                sh '''
-                
-                    docker build -f Dockerfile.back -t omartamer12/omni-store-e-commerce:backend-${IMAGE_TAG} .
-                    docker build -f Dockerfile.front -t omartamer12/omni-store-e-commerce:frontend-${IMAGE_TAG} .
-                    docker images
-                '''
+               script{
+                gv.imageBuild()
+               }
             }
         }
 
         stage("Image Push") {
             steps {
-                // Use withCredentials to securely handle credentials
-                withCredentials([usernamePassword(credentialsId: '9', usernameVariable: 'DOCKER_USR', passwordVariable: 'DOCKER_PSW')]) {
-                    sh '''
-                        echo $DOCKER_PSW | docker login -u $DOCKER_USR --password-stdin
-                        docker push omartamer12/omni-store-e-commerce:frontend-${IMAGE_TAG}
-                        docker push omartamer12/omni-store-e-commerce:backend-${IMAGE_TAG}
-                    '''
-                }
+               script{
+                gv.imagePush()
+               }
+            }
+        }
+        stage("Deploy") {
+            steps {
+               script{
+                gv.deploy()
+               }
             }
         }
     }
-
     post {
         success {
             echo "======== Pipeline executed successfully ========"
