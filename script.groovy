@@ -10,6 +10,7 @@ def cleanUp() {
   // -f forces the prune without confirmation
    sh '''
   docker system df
+  docker image prune -f
   docker system prune -f
   docker system df
   '''
