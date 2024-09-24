@@ -19,6 +19,8 @@ def imageBuild() {
    // Build the backend and frontend images
   sh ''' 
       docker compose build
+      docker tag omartamer12/omni-store-e-commerce-backend:latest omartamer12/omni-store-e-commerce:backend-${BUILD_NUMBER}
+      docker tag omartamer12/omni-store-e-commerce-frontend:latest omartamer12/omni-store-e-commerce:frontend-${BUILD_NUMBER}
       docker images
     '''
 }
