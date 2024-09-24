@@ -1,7 +1,7 @@
 def versionChecker() {
 
     sh '''
-    docker version
+    docker --version 
     docker compose version'
     '''
 
