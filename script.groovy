@@ -7,9 +7,10 @@ def versionChecker() {
 }
 
 def cleanUp() {
+  // -f forces the prune without confirmation
    sh '''
   docker system df
-  docker system prune -f' // -f forces the prune without confirmation
+  docker system prune -f
   docker system df
   '''
 }
