@@ -15,8 +15,10 @@ pipeline {
         }
         stage("Docker Version Checker") {
             steps {
+            script {
               gv.versionChecker()
               }
+             }
             }
         stage("Cleanup") {
           steps {
