@@ -39,8 +39,8 @@ def imagePush() {
     withCredentials([usernamePassword(credentialsId: '9', usernameVariable: 'DOCKER_USR', passwordVariable: 'DOCKER_PSW')]) {
  sh '''
     echo $DOCKER_PSW | docker login -u $DOCKER_USR --password-stdin
-    docker push omartamer12/omni-store-e-commerce-backend
-    docker push omartamer12/omni-store-e-commerce-frontend
+    docker push omartamer12/omni-store-e-commerce:frontend-${BUILD_NUMBER}
+    docker push omartamer12/omni-store-e-commerce:backend-${BUILD_NUMBER}
     '''
     }
 }
