@@ -3,7 +3,7 @@ def gv
 pipeline {
     agent any
     tools {
-      docker  'Docker'
+      dockerTool  'Docker'
     }
     stages {
         stage("init groovy") {
