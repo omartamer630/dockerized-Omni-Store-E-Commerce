@@ -2,7 +2,9 @@ def gv
 
 pipeline {
     agent any
-
+    tools {
+      docker  'Docker'
+    }
     stages {
         stage("init groovy") {
             steps {
@@ -11,6 +13,11 @@ pipeline {
               }
             }
         }
+        stage("Docker Version Checker") {
+            steps {
+              gv.versionChecker()
+              }
+            }
         stage("Cleanup") {
           steps {
             script {
@@ -25,7 +32,13 @@ pipeline {
                }
             }
         }
-
+        stage("Image Test") {
+          steps {
+            script {
+                gv.imageTest()
+            }
+          }
+        }
         stage("Image Push") {
             steps {
                script{

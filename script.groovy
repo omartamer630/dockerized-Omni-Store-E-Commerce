@@ -1,29 +1,49 @@
-def cleanUp(){
-   sh 'docker system prune -f' // -f forces the prune without confirmation
+def versionChecker() {
+
+    sh '''
+    docker version
+    docker compose version'
+    '''
+
 }
 
-def imageBuild(){
-               // Build the backend and frontend images
+def cleanUp() {
+   sh '''
+  docker system df
+  docker system prune -f' // -f forces the prune without confirmation
+  docker system df
+  '''
+}
+
+def imageBuild() {
+   // Build the backend and frontend images
   sh ''' 
-      docker build -f Dockerfile.back -t omartamer12/omni-store-e-commerce:backend-${BUILD_NUMBER} .
-      docker build -f Dockerfile.front -t omartamer12/omni-store-e-commerce:frontend-${BUILD_NUMBER} .
+      docker compose build
       docker images
     '''
 }
 
-def imagePush(){
+def imageTest() {
+  sh '''
+    docker compose up -d
+    docker ps -a
+    docker compose down
+  '''
+}
+
+def imagePush() {
    // Push the images to Docker Hub
   // Use withCredentials to securely handle credentials
     withCredentials([usernamePassword(credentialsId: '9', usernameVariable: 'DOCKER_USR', passwordVariable: 'DOCKER_PSW')]) {
  sh '''
     echo $DOCKER_PSW | docker login -u $DOCKER_USR --password-stdin
-    docker push omartamer12/omni-store-e-commerce:frontend-${BUILD_NUMBER}
-    docker push omartamer12/omni-store-e-commerce:backend-${BUILD_NUMBER}
+    docker push omartamer12/omni-store-e-commerce-backend
+    docker push omartamer12/omni-store-e-commerce-frontend
     '''
     }
 }
 
-def deploy(){
+def deploy() {
    // Deploy the backend and frontend services
     echo 'deploying the application...'
 }
